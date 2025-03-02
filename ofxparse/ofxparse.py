@@ -666,6 +666,15 @@ class OfxParser(object):
         tag = ofx.find('tferaction')
         if hasattr(tag, 'contents'):
             transaction.tferaction = tag.contents[0].strip()
+        tag = ofx.find('newunits')
+        if hasattr(tag, 'contents'):
+            transaction.new_units = cls.toDecimal(tag)
+        tag = ofx.find('oldunits')
+        if hasattr(tag, 'contents'):
+            transaction.old_units = cls.toDecimal(tag)
+        tag = ofx.find('avgcostbasis')
+        if hasattr(tag, 'contents'):
+            transaction.cost_basis = cls.toDecimal(tag)
         return transaction
 
     @classmethod
